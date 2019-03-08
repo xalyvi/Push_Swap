@@ -23,15 +23,37 @@ int	is_sorted(int *array, int i, int b)
 	if (b > -1)
 		return (0);
 	while (i > 0)
-		if (array[i] <= array[i - 1])
+		if (array[i] < array[i - 1])
 			i--;
 		else
 			return (0);
 	return (1);
 }
 
+int	repeating_f(int array[], int len)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (i < len - 1)
+	{
+		j = i + 1;
+		while (j < len)
+		{
+			if (array[i] == array[j])
+				return (1);
+			j++;
+		}
+		i++;
+	}
+	return (0);
+}
+
 int	ft_strdig(const char *str)
 {
+	if (*str == '-' || *str == '+')
+		str++;
 	while (*str != '\0')
 	{
 		if (*str >= '0' && *str <= '9')
@@ -42,14 +64,11 @@ int	ft_strdig(const char *str)
 	return (1);
 }
 
-int	ft_atoi(const char *str)
+long	ft_atol(const char *str)
 {
-	int	nbr;
+	long	nbr;
 	char	neg;
 
-	while (*str == ' ' || *str == '\t' || *str == '\n'
-			|| *str == '\v' || *str == '\r' || *str == '\f')
-		str++;
 	neg = (*str == '-');
 	if (*str == '-' || *str == '+')
 		str++;

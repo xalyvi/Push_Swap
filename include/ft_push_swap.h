@@ -46,6 +46,7 @@ void	reverse_ab(t_stack *a, t_stack *b);
 
 void	print_arrs(t_stack *a, t_stack *b);
 int	is_command(char *str);
+int	repeating_f(int array[], int len);
 int	is_sorted(int *array, int i, int b);
 int	ft_strdig(const char *str);
 
@@ -75,7 +76,7 @@ typedef struct	s_list
 	struct s_list	*next;
 }	t_list;
 
-int	ft_atoi(const char *str);
+long	ft_atol(const char *str);
 void	ft_putnbr(int n);
 int	ft_strcmp(const char *s1, const char *s2);
 char	*ft_strjoin(char const *s1, char const *s2);
