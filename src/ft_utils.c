@@ -2,33 +2,29 @@
 
 int	is_command(char *str)
 {
-	static char	*c[12] = {"sa", "sb", "ss", "pa", "pb",
-		"pb", "ra", "rb", "rr", "rra", "rrb", "rrr"};
+	static char	*c[11] = {"sa", "sb", "ss", "pa", "pb",
+		"ra", "rb", "rr", "rra", "rrb", "rrr"};
 	int		i;
-	int		j;
 
 	i = 0;
-	while (i < 12)
+	while (i < 11)
 	{
-		j = 0;
-		while (c[i][j] || str[j])
-			if (c[i][j] == str[j])
-				j++;
-			else
-				return (0);
+		if (ft_strcmp(str, c[i]) == 0)
+		{
+			return (i);
+		}
 		i++;
 	}
-	return (1);
+	return (-1);
 }
 
-int	is_sorted(int *array, int len)
+int	is_sorted(int *array, int i, int b)
 {
-	int	i;
-
-	i = 0;
-	while (i < len)
-		if (array[i] >= array[i + 1])
-			i++;
+	if (b > -1)
+		return (0);
+	while (i > 0)
+		if (array[i] <= array[i - 1])
+			i--;
 		else
 			return (0);
 	return (1);
@@ -48,29 +44,20 @@ int	ft_strdig(const char *str)
 
 int	ft_atoi(const char *str)
 {
-	int		i;
-	long long int	result;
-	long long int	neg;
+	int	nbr;
+	char	neg;
 
-	i = 0;
-	neg = 1;
-	result = 0;
-	while (str[i] == 32 || str[i] == 10 || str[i] == 9 || str[i] == 12 ||
-			str[i] == 13 || str[i] == 11)
-		i++;
-	if (str[i] == '-' || str[i] == '+')
+	while (*str == ' ' || *str == '\t' || *str == '\n'
+			|| *str == '\v' || *str == '\r' || *str == '\f')
+		str++;
+	neg = (*str == '-');
+	if (*str == '-' || *str == '+')
+		str++;
+	nbr = 0;
+	while (*str >= '0' && *str <= '9')
 	{
-		if (str[i] == '-')
-			neg = -1;
-		i++;
+		nbr = nbr * 10 + (*str - '0');
+		str++;
 	}
-	while (str[i])
-	{
-		if (str[i] < 48 || 57 < str[i])
-			return (result * neg);
-		else
-			return (result * 10) + (long long int)(str[i] - '0');
-		i++;
-	}
-	return (result * neg);
+	return (neg ? -nbr : nbr);
 }

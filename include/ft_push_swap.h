@@ -3,30 +3,88 @@
 
 # include <unistd.h>
 # include <stdlib.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
 
 typedef struct	s_stack
 {
-	int		top;
+	int	top;
 	unsigned	capacity;
-	int		*array;
-}		t_stack;
+	int	*array;
+}	t_stack;
 
 /*
 ** Stack functions
 */
 
-t_stack		*createStack(unsigned capacity);
-int		isFull(t_stack *stack);
-int		isEmpty(t_stack *stack);
-int		push(t_stack *stack, int item);
-int		pop(t_stack *stack);
+t_stack	*create_stack(unsigned capacity);
+int	is_full(t_stack *stack);
+int	is_empty(t_stack *stack);
+int	push(t_stack *stack, int item);
+int	pop(t_stack *stack);
+
+/*
+** Commands
+*/
+
+void	swap_a(t_stack *a, t_stack *b);
+void	swap_b(t_stack *a, t_stack *b);
+void	swap_ab(t_stack *a, t_stack *b);
+void	push_a(t_stack *a, t_stack *b);
+void	push_b(t_stack *a, t_stack *b);
+void	rotate_a(t_stack *a, t_stack *b);
+void	rotate_b(t_stack *a, t_stack *b);
+void	rotate_ab(t_stack *a, t_stack *b);
+void	reverse_a(t_stack *a, t_stack *b);
+void	reverse_b(t_stack *a, t_stack *b);
+void	reverse_ab(t_stack *a, t_stack *b);
+
 /*
 ** Utility functions
 */
 
-int		is_command(char *str);
-int		is_sorted(int *array, int len);
-int		ft_strdig(const char *str);
-int		ft_atoi(const char *str);
+void	print_arrs(t_stack *a, t_stack *b);
+int	is_command(char *str);
+int	is_sorted(int *array, int i, int b);
+int	ft_strdig(const char *str);
+
+/*
+** GET_NEXT_LINE functions
+*/
+
+typedef struct	s_gnl
+{
+	char	*buf;
+	int	count;
+	int	i;
+	int	nl;
+	int	fd;
+}	t_gnl;
+
+int	get_next_line(int const fd, char **line);
+
+/*
+** LIBFT functions
+*/
+
+typedef struct	s_list
+{
+	char	*content;
+	size_t	content_size;
+	struct s_list	*next;
+}	t_list;
+
+int	ft_atoi(const char *str);
+void	ft_putnbr(int n);
+int	ft_strcmp(const char *s1, const char *s2);
+char	*ft_strjoin(char const *s1, char const *s2);
+char	*ft_strdup(const char *str);
+char	*ft_strndup(const char *s1, size_t n);
+size_t	ft_strlen(const char *str);
+void	*ft_memcpy(void *dest, const void *src, size_t n);
+t_list	*ft_lstnew(void const *content, size_t content_size);
+void	ft_lstadd(t_list **alst, t_list *new);
+char	*ft_strchr(const char *s, int c);
 
 #endif

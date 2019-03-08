@@ -1,5 +1,12 @@
 UTILS = ft_utils.c \
-	ft_stack_utils.c
+	ft_stack_utils.c \
+	ft_str_utils.c \
+	ft_str_utils2.c \
+	ft_lst_utils.c \
+	ft_get_next_line.c \
+	ft_commands1.c \
+	ft_commands2.c \
+	ft_commands3.c
 
 CHECKER_SRC = $(UTILS) \
 	      checker/checker.c
