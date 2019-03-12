@@ -28,27 +28,33 @@ int	pop(t_stack *stack);
 ** Commands
 */
 
-void	swap_a(t_stack *a, t_stack *b);
-void	swap_b(t_stack *a, t_stack *b);
-void	swap_ab(t_stack *a, t_stack *b);
-void	push_a(t_stack *a, t_stack *b);
-void	push_b(t_stack *a, t_stack *b);
-void	rotate_a(t_stack *a, t_stack *b);
-void	rotate_b(t_stack *a, t_stack *b);
-void	rotate_ab(t_stack *a, t_stack *b);
-void	reverse_a(t_stack *a, t_stack *b);
-void	reverse_b(t_stack *a, t_stack *b);
-void	reverse_ab(t_stack *a, t_stack *b);
+void	swap_a(t_stack *a, t_stack *b, int p);
+void	swap_b(t_stack *a, t_stack *b, int p);
+void	swap_ab(t_stack *a, t_stack *b, int p);
+void	push_a(t_stack *a, t_stack *b, int p);
+void	push_b(t_stack *a, t_stack *b, int p);
+void	rotate_a(t_stack *a, t_stack *b, int p);
+void	rotate_b(t_stack *a, t_stack *b, int p);
+void	rotate_ab(t_stack *a, t_stack *b, int p);
+void	reverse_a(t_stack *a, t_stack *b, int p);
+void	reverse_b(t_stack *a, t_stack *b, int p);
+void	reverse_ab(t_stack *a, t_stack *b, int p);
 
 /*
 ** Utility functions
 */
 
+int	write_rt(char *str, int rt);
+int	check_args(t_stack *a);
+int	push_stack(t_stack *a, int st, int en, char *argv[]);
 void	print_arrs(t_stack *a, t_stack *b);
 int	is_command(char *str);
 int	repeating_f(int array[], int len);
-int	is_sorted(int *array, int i, int b);
+int	is_sorted(t_stack *s);
 int	ft_strdig(const char *str);
+void	q_push_b(t_stack *a, t_stack *b);
+void	optimization(t_stack *a, t_stack *b);
+void	quicksort(t_stack *a, t_stack *b);
 
 /*
 ** GET_NEXT_LINE functions

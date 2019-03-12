@@ -18,12 +18,13 @@ int	is_command(char *str)
 	return (-1);
 }
 
-int	is_sorted(int *array, int i, int b)
+int	is_sorted(t_stack *s)
 {
-	if (b > -1)
-		return (0);
+	int	i;
+
+	i = s->top;
 	while (i > 0)
-		if (array[i] < array[i - 1])
+		if (s->array[i] < s->array[i - 1])
 			i--;
 		else
 			return (0);

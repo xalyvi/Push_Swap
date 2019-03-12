@@ -1,11 +1,13 @@
 #include "ft_push_swap.h"
 
-void	reverse_a(t_stack *a, t_stack *b)
+void	reverse_a(t_stack *a, t_stack *b, int p)
 {
 	int	tmp;
 	int	i;
-	
+
 	(void)b;
+	if (p)
+		write(1, "rra\n", 4);
 	i = 0;
 	tmp = a->array[0];
 	while (i < a->top)
@@ -16,12 +18,14 @@ void	reverse_a(t_stack *a, t_stack *b)
 	a->array[i] = tmp;
 }
 
-void	reverse_b(t_stack *a, t_stack *b)
+void	reverse_b(t_stack *a, t_stack *b, int p)
 {
 	int	tmp;
 	int	i;
 	
 	(void)a;
+	if (p)
+		write(1, "rrb\n", 4);
 	i = 0;
 	tmp = b->array[0];
 	while (i < b->top)
@@ -32,11 +36,13 @@ void	reverse_b(t_stack *a, t_stack *b)
 	b->array[i] = tmp;
 }
 
-void	reverse_ab(t_stack *a, t_stack *b)
+void	reverse_ab(t_stack *a, t_stack *b, int p)
 {
 	int	tmp;
 	int	i;
 	
+	if (p)
+		write(1, "rrr\n", 4);
 	i = 0;
 	tmp = a->array[0];
 	while (i < a->top)
@@ -59,21 +65,20 @@ void	print_arrs(t_stack *a, t_stack *b)
 {
 	int	i;
 
-	i = a->top;
-	write(1, "a:  ", 4);
-	while (i > -1)
+	i = (int)a->capacity - 1;
+	while (i >= 0)
 	{
-		ft_putnbr(a->array[i]);
+		if (i <= a->top)
+			ft_putnbr(a->array[i]);
+		else
+			write(1, "_", 1);
 		write(1, " ", 1);
+		if (i <= b->top)
+			ft_putnbr(b->array[i]);
+		else
+			write(1, "_", 1);
+		write(1, "\n", 1);
 		i--;
 	}
-	write(1, "\nb:  ", 5);
-	i = b->top;
-	while (i > -1)
-	{
-		ft_putnbr(b->array[i]);
-		write(1, " ", 1);
-		i--;
-	}
-	write(1, "\n", 1);
+	write(1, "\n_ _\na b\n\n\n", 11);
 }

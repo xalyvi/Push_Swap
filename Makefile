@@ -1,4 +1,5 @@
 UTILS = ft_utils.c \
+	ft_utils2.c \
 	ft_stack_utils.c \
 	ft_str_utils.c \
 	ft_str_utils2.c \
@@ -11,7 +12,10 @@ UTILS = ft_utils.c \
 CHECKER_SRC = $(UTILS) \
 	      checker/checker.c
 
-PUSH_SWAP_SRC = $(UTILS)
+PUSH_SWAP_SRC = $(UTILS) \
+		push_swap/push_swap.c \
+		push_swap/optimization.c \
+		push_swap/quicksort.c
 
 CHECKER_OBJ = $(CHECKER_SRC:.c=.o)
 PUSH_SWAP_OBJ = $(PUSH_SWAP_SRC:.c=.o)
@@ -32,8 +36,7 @@ CFLAGS = -Wall -Wextra -Werror
 CHECKER = checker
 PUSH_SWAP = push_swap
 
-all: $(CHECKER)
-	$(PUSH_SWAP)
+all: $(CHECKER) $(PUSH_SWAP)
 
 $(OBJDIR):
 	@mkdir -p $(OBJDIR)
