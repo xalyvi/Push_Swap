@@ -46,7 +46,7 @@ static void     optimize_order(t_stack *a, t_stack *b)
 	}
 }
 
-void	q_push_b(t_stack *a, t_stack *b)
+static void	q_push_b(t_stack *a, t_stack *b)
 {
 	int	value;
 	int	done;

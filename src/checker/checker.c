@@ -47,7 +47,7 @@ int	main(int argc, char *argv[])
                 return (write_rt("Error\n", 1));
 	if (push_stack(a, i, argc, argv))
 		return(1);
-	if (check_args(a, b))
+	if (check_args(a))
 		get_commands(a, b, (i == 1));
 	return (0);
 }

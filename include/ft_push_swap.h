@@ -52,7 +52,6 @@ int	is_command(char *str);
 int	repeating_f(int array[], int len);
 int	is_sorted(t_stack *s);
 int	ft_strdig(const char *str);
-void	q_push_b(t_stack *a, t_stack *b);
 void	optimization(t_stack *a, t_stack *b);
 void	quicksort(t_stack *a, t_stack *b);
 
