@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_str_utils.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/13 23:38:15 by srolland          #+#    #+#             */
+/*   Updated: 2019/03/13 23:40:31 by srolland         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_push_swap.h"
 
 size_t	ft_strlen(const char *str)
@@ -13,7 +25,7 @@ size_t	ft_strlen(const char *str)
 char	*ft_strdup(const char *str)
 {
 	char	*ret;
-	int	i;
+	int		i;
 
 	i = 0;
 	if ((ret = (char *)malloc(sizeof(char) * ft_strlen(str) + 1)))

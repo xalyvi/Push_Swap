@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_utils.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/13 23:38:01 by srolland          #+#    #+#             */
+/*   Updated: 2019/03/13 23:44:25 by srolland         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_push_swap.h"
 
-int	is_command(char *str)
+int		is_command(char *str)
 {
 	static char	*c[11] = {"sa", "sb", "ss", "pa", "pb",
 		"ra", "rb", "rr", "rra", "rrb", "rrr"};
-	int		i;
+	int			i;
 
 	i = 0;
 	while (i < 11)
@@ -18,7 +30,7 @@ int	is_command(char *str)
 	return (-1);
 }
 
-int	is_sorted(t_stack *s)
+int		is_sorted(t_stack *s)
 {
 	int	i;
 
@@ -31,7 +43,7 @@ int	is_sorted(t_stack *s)
 	return (1);
 }
 
-int	repeating_f(int array[], int len)
+int		repeating_f(int array[], int len)
 {
 	int	i;
 	int	j;
@@ -51,7 +63,7 @@ int	repeating_f(int array[], int len)
 	return (0);
 }
 
-int	ft_strdig(const char *str)
+int		ft_strdig(const char *str)
 {
 	if (*str == '-' || *str == '+')
 		str++;

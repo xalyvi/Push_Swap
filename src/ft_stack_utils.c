@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_stack_utils.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/13 23:37:48 by srolland          #+#    #+#             */
+/*   Updated: 2019/03/13 23:48:56 by srolland         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_push_swap.h"
 
 t_stack	*create_stack(unsigned capacity)
@@ -17,25 +29,12 @@ t_stack	*create_stack(unsigned capacity)
 	return (stack);
 }
 
-int	is_full(t_stack *stack)
+void	push(t_stack *stack, int item)
 {
-	return (stack->top == (int)(stack->capacity - 1));
-}
-
-int	is_empty(t_stack *stack)
-{
-	return (stack->top == -1);
-}
-
-int	push(t_stack *stack, int item)
-{
-	if (is_full(stack))
-		return (1);
 	stack->array[++stack->top] = item;
-	return (0);
 }
 
-int	pop(t_stack *stack)
+int		pop(t_stack *stack)
 {
 	return (stack->array[stack->top--]);
 }

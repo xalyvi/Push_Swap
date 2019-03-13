@@ -1,24 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_get_next_line.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/13 23:38:57 by srolland          #+#    #+#             */
+/*   Updated: 2019/03/13 23:40:08 by srolland         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_push_swap.h"
 
-int		line_copy(char **line, char *content, char c)
-{
-	int		i;	
-
-	i = 0;
-	while (content[i] && content[i] != c)
-		i++;
-	if (!(*line = ft_strndup(content, i)))
-		return (0);
-	return (i);
-}
-
-t_list	*get_live(int fd, t_list **hist)
+static t_list	*get_fd(t_list **list, int fd)
 {
 	t_list	*tmp;
 
-	if (!hist)
-		return (NULL);
-	tmp = *hist;
+	tmp = *list;
 	while (tmp)
 	{
 		if ((int)tmp->content_size == fd)
@@ -26,53 +24,80 @@ t_list	*get_live(int fd, t_list **hist)
 		tmp = tmp->next;
 	}
 	tmp = ft_lstnew("", fd);
-	ft_lstadd(hist, tmp);
+	ft_lstadd(list, tmp);
 	return (tmp);
 }
 
-int		my_read(const int fd, char **content)
+static int		ft_strccpy(char **dest, const char *src, char c)
 {
-	int		read_result;
-	char	*tmp;
+	int	len;
+
+	len = -1;
+	while (src[++len])
+		if (src[len] == c)
+			break ;
+	*dest = ft_strsub(src, 0, len);
+	return (len);
+}
+
+static int		read_from_fd(const int fd, char **line)
+{
+	int		ret;
+	char	*temp;
 	char	buf[43];
 
-	while ((read_result = read(fd, buf, 43)))
+	while ((ret = read(fd, buf, 42)))
 	{
-		buf[read_result] = '\0';
-		tmp = *content;
-		if (!(*content = ft_strjoin(*content, buf)))
+		buf[ret] = '\0';
+		temp = *line;
+		if (!(*line = ft_strjoin(*line, buf)))
 			return (-1);
-		free(tmp);
+		free(temp);
 		if (ft_strchr(buf, '\n'))
 			break ;
 	}
-	return (read_result);
+	return (ret);
 }
 
-int		get_next_line(const int fd, char **line)
+static void		ft_lstfone(t_list **list, t_list *one)
+{
+	t_list	*temp;
+
+	if (!list || !*list || !one)
+		return ;
+	temp = *list;
+	while (temp)
+		if (temp == one)
+			break ;
+		else
+			temp = temp->next;
+	free(temp->content);
+	temp->content = (char *)malloc(sizeof(char));
+}
+
+int				get_next_line(const int fd, char **line)
 {
 	char			buf[43];
-	size_t			read_result;
-	static t_list	*hist;
-	t_list			*live;
-	char			*tmp;
+	static t_list	*list = 0;
+	int				ret;
+	t_list			*now;
+	char			*temp;
 
-	if (fd < 0 || !line || (read(fd, buf, 0)) < 0 ||
-			(!(live = get_live(fd, &hist))))
+	if (fd < 0 || line == NULL || read(fd, buf, 0) < 0)
 		return (-1);
-	tmp = live->content;
-	read_result = my_read(fd, &tmp);
-	live->content = tmp;
-	if (!read_result && !*tmp)
+	now = get_fd(&list, fd);
+	temp = now->content;
+	ret = read_from_fd(fd, &temp);
+	now->content = temp;
+	if (ret < 42 && !*temp)
 		return (0);
-	read_result = line_copy(line, live->content, '\n');
-	tmp = live->content;
-	if (tmp[read_result] != '\0')
+	ret = ft_strccpy(line, now->content, '\n');
+	if (temp[ret] != '\0')
 	{
-		live->content = ft_strdup(&((live->content)[read_result + 1]));
-		free(tmp);
+		now->content = ft_strdup(&((now->content)[ret + 1]));
+		free(temp);
 	}
 	else
-		tmp[0] = '\0';
+		ft_lstfone(&list, now);
 	return (1);
 }

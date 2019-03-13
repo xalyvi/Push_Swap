@@ -1,11 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_commands3.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/13 23:34:38 by srolland          #+#    #+#             */
+/*   Updated: 2019/03/13 23:35:14 by srolland         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_push_swap.h"
 
-void	reverse_a(t_stack *a, t_stack *b, int p)
+void	reverse_a(t_stack *a, t_stack *b, int p, int x)
 {
 	int	tmp;
 	int	i;
 
-	(void)b;
 	if (p)
 		write(1, "rra\n", 4);
 	i = 0;
@@ -16,14 +27,15 @@ void	reverse_a(t_stack *a, t_stack *b, int p)
 		i++;
 	}
 	a->array[i] = tmp;
+	if (x)
+		print_arrs(a, b);
 }
 
-void	reverse_b(t_stack *a, t_stack *b, int p)
+void	reverse_b(t_stack *a, t_stack *b, int p, int x)
 {
 	int	tmp;
 	int	i;
-	
-	(void)a;
+
 	if (p)
 		write(1, "rrb\n", 4);
 	i = 0;
@@ -34,13 +46,15 @@ void	reverse_b(t_stack *a, t_stack *b, int p)
 		i++;
 	}
 	b->array[i] = tmp;
+	if (x)
+		print_arrs(a, b);
 }
 
-void	reverse_ab(t_stack *a, t_stack *b, int p)
+void	reverse_ab(t_stack *a, t_stack *b, int p, int x)
 {
 	int	tmp;
 	int	i;
-	
+
 	if (p)
 		write(1, "rrr\n", 4);
 	i = 0;
@@ -59,6 +73,8 @@ void	reverse_ab(t_stack *a, t_stack *b, int p)
 		i++;
 	}
 	b->array[i] = tmp;
+	if (x)
+		print_arrs(a, b);
 }
 
 void	print_arrs(t_stack *a, t_stack *b)

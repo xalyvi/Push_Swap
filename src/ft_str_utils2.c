@@ -1,23 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_str_utils2.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/13 23:38:21 by srolland          #+#    #+#             */
+/*   Updated: 2019/03/13 23:42:17 by srolland         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_push_swap.h"
 
-char	*ft_strndup(const char *s1, size_t n)
-{
-	char	*s2;
-	size_t 	i;
-
-	i = 0;
-	if (!(s2 = (char *)malloc(sizeof(char) * (n + 1))))
-		return (NULL);
-	while (s1[i] && i < n)
-	{
-		s2[i] = s1[i];
-		i++;
-	}
-	s2[i] = '\0';
-	return (s2);
-}
-
-int	ft_strcmp(const char *s1, const char *s2)
+int			ft_strcmp(const char *s1, const char *s2)
 {
 	while (*s1 && *s1 == *s2)
 	{
@@ -27,7 +22,7 @@ int	ft_strcmp(const char *s1, const char *s2)
 	return ((unsigned char)*s1 - (unsigned char)*s2);
 }
 
-char	*ft_strchr(const char *s, int c)
+char		*ft_strchr(const char *s, int c)
 {
 	size_t	i;
 
@@ -46,24 +41,45 @@ static void	ft_putchar(const char c)
 	write(1, &c, 1);
 }
 
-void	ft_putnbr(int n)
+void		ft_putnbr(int n)
 {
-	unsigned int	t;
+	int	minus;
+	int	digit;
+	int	tmp;
 
+	minus = 1;
 	if (n < 0)
 	{
-		write(1, "-", 1);
-		t = -n;
+		minus = -1;
+		ft_putchar('-');
 	}
-	else
-		t = n;
-	if (n >= 10)
+	tmp = n;
+	digit = 1;
+	while (tmp /= 10)
+		digit *= 10;
+	while (digit)
 	{
-		ft_putnbr(t / 10);
-		ft_putnbr(t % 10);
+		ft_putchar(n / (digit * minus) + 48);
+		n %= digit;
+		digit /= 10;
 	}
-	else if (t < 10)
+}
+
+char		*ft_strsub(char const *s, unsigned int start, size_t len)
+{
+	char	*sub;
+	size_t	i;
+
+	if (s == NULL)
+		return (NULL);
+	if ((sub = (char*)malloc(sizeof(char) * (len + 1))) == NULL)
+		return (NULL);
+	i = 0;
+	while (len--)
 	{
-		ft_putchar(t + '0');
+		sub[i] = s[start + i];
+		i++;
 	}
+	sub[i] = '\0';
+	return (sub);
 }

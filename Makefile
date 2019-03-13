@@ -31,7 +31,7 @@ PUSH_SWAP_OBJS = $(addprefix $(OBJDIR)/, $(PUSH_SWAP_OBJ))
 INCLUDES = -I ./include
 
 CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Werror -Wextra
 
 CHECKER = checker
 PUSH_SWAP = push_swap
