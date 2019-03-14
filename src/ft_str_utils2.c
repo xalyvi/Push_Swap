@@ -6,7 +6,7 @@
 /*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 23:38:21 by srolland          #+#    #+#             */
-/*   Updated: 2019/03/14 19:55:58 by srolland         ###   ########.fr       */
+/*   Updated: 2019/03/14 21:13:33 by srolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ char		*ft_itoa(int n)
 	}
 	if (n < 0)
 		buf[i++] = '-';
-	if ((num = (char *)malloc(sizeof(char) * i)) == NULL)
+	if ((num = (char *)malloc(sizeof(char) * (i + 1))) == NULL)
 		return (NULL);
 	while (--i >= 0)
 		num[tmp++] = buf[i];
