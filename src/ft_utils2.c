@@ -6,7 +6,7 @@
 /*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 23:38:05 by srolland          #+#    #+#             */
-/*   Updated: 2019/03/13 23:44:12 by srolland         ###   ########.fr       */
+/*   Updated: 2019/03/14 20:05:23 by srolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,5 @@ int	check_args(t_stack *a)
 {
 	if (repeating_f(a->array, a->top + 1))
 		return (write_rt("Error\n", 0));
-	if (a->top == 0)
-		return (write_rt("Only one element!\n", 0));
-	if (is_sorted(a))
-		return (write_rt("Already sorted!\n", 0));
 	return (1);
 }

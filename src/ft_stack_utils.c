@@ -6,7 +6,7 @@
 /*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 23:37:48 by srolland          #+#    #+#             */
-/*   Updated: 2019/03/13 23:48:56 by srolland         ###   ########.fr       */
+/*   Updated: 2019/03/14 20:29:26 by srolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,22 @@ t_stack	*create_stack(unsigned capacity)
 		return (NULL);
 	}
 	return (stack);
+}
+
+void	free_stacks(t_stack *a, t_stack *b)
+{
+	if (a != NULL)
+	{
+		if (a->array != NULL)
+			free(a->array);
+		free(a);
+	}
+	if (b != NULL)
+	{
+		if (b->array != NULL)
+			free(b->array);
+		free(b);
+	}
 }
 
 void	push(t_stack *stack, int item)

@@ -6,7 +6,7 @@
 /*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 23:38:21 by srolland          #+#    #+#             */
-/*   Updated: 2019/03/13 23:42:17 by srolland         ###   ########.fr       */
+/*   Updated: 2019/03/14 19:55:58 by srolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,33 +36,32 @@ char		*ft_strchr(const char *s, int c)
 	return (NULL);
 }
 
-static void	ft_putchar(const char c)
+char		*ft_itoa(int n)
 {
-	write(1, &c, 1);
-}
+	char			buf[22];
+	char			*num;
+	int				i;
+	unsigned int	tmp;
 
-void		ft_putnbr(int n)
-{
-	int	minus;
-	int	digit;
-	int	tmp;
-
-	minus = 1;
-	if (n < 0)
-	{
-		minus = -1;
-		ft_putchar('-');
-	}
+	if (n == 0)
+		return (ft_strdup("0"));
+	i = 0;
 	tmp = n;
-	digit = 1;
-	while (tmp /= 10)
-		digit *= 10;
-	while (digit)
+	if (n < 0)
+		tmp = -n;
+	while (tmp != 0)
 	{
-		ft_putchar(n / (digit * minus) + 48);
-		n %= digit;
-		digit /= 10;
+		buf[i++] = (tmp % 10) + 48;
+		tmp /= 10;
 	}
+	if (n < 0)
+		buf[i++] = '-';
+	if ((num = (char *)malloc(sizeof(char) * i)) == NULL)
+		return (NULL);
+	while (--i >= 0)
+		num[tmp++] = buf[i];
+	num[tmp] = '\0';
+	return (num);
 }
 
 char		*ft_strsub(char const *s, unsigned int start, size_t len)

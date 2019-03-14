@@ -6,13 +6,13 @@
 /*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 22:56:53 by srolland          #+#    #+#             */
-/*   Updated: 2019/03/14 00:14:45 by srolland         ###   ########.fr       */
+/*   Updated: 2019/03/14 20:29:47 by srolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
 
-static int	get_commands(t_stack *a, t_stack *b, int v)
+static void	get_commands(t_stack *a, t_stack *b, int v)
 {
 	static void	(*com[11])(t_stack *, t_stack *, int, int) = { swap_a, swap_b,
 		swap_ab, push_a, push_b, rotate_a, rotate_b, rotate_ab,
@@ -32,12 +32,11 @@ static int	get_commands(t_stack *a, t_stack *b, int v)
 		{
 			free(line);
 			write(1, "Error\n", 6);
-			return (1);
+			return ;
 		}
 		(*com[i])(a, b, 0, v);
 		free(line);
 	}
-	return (0);
 }
 
 int			main(int argc, char *argv[])
@@ -55,11 +54,11 @@ int			main(int argc, char *argv[])
 	if (push_stack(a, i, argc, argv))
 		return (1);
 	if (check_args(a))
-		if (get_commands(a, b, (i == 1)))
-			return (1);
+		get_commands(a, b, (i == 1));
 	if (is_sorted(a) && b->top == -1)
 		write(1, "OK\n", 3);
 	else
 		write(1, "KO\n", 3);
+	free_stacks(a, b);
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 23:39:08 by srolland          #+#    #+#             */
-/*   Updated: 2019/03/13 23:45:33 by srolland         ###   ########.fr       */
+/*   Updated: 2019/03/14 20:49:07 by srolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,14 @@ int	main(int argc, char *argv[])
 		return (1);
 	if (check_args(a))
 	{
+		if (i == 1)
+		{
+			write(1, "Init a and b\n", 13);
+			print_arrs(a, b);
+		}
 		optimization(a, b, (i == 1));
 		quicksort(a, b, (i == 1));
 	}
+	free_stacks(a, b);
 	return (0);
 }
