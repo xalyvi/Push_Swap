@@ -6,7 +6,7 @@
 /*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 20:31:34 by srolland          #+#    #+#             */
-/*   Updated: 2019/03/14 20:34:47 by srolland         ###   ########.fr       */
+/*   Updated: 2019/03/19 21:32:14 by srolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,6 +57,7 @@ void			reverse_ab(t_stack *a, t_stack *b, int p, int x);
 
 int				write_rt(char *str, int rt);
 int				check_args(t_stack *a);
+int				get_ruby(int i, char ***argv, int *argc);
 int				push_stack(t_stack *a, int st, int en, char *argv[]);
 void			print_arrs(t_stack *a, t_stack *b);
 int				is_command(char *str);
@@ -95,9 +96,10 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
-long			ft_atol(const char *str);
+intmax_t		ft_atol(const char *str);
 char			*ft_itoa(int n);
 int				ft_strcmp(const char *s1, const char *s2);
+char			**ft_strsplit(char const *s, char c);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strdup(const char *str);
 char			*ft_strndup(const char *s1, size_t n);
