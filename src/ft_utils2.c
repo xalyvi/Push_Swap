@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
+#include <stdio.h>
 
 int		write_rt(char *str, int rt)
 {
@@ -45,28 +46,66 @@ int		get_ruby(int i, char ***argv, int *argc)
 	return (0);
 }
 
-int		push_stack(t_stack *a, int st, int en, char *argv[])
+int		*push_arg(char *argv[], int amnt)
 {
 	intmax_t	tmp;
+	int			i;
+	int			*arr;
 
-	while (--en > st)
+	if (!(arr = (int*)malloc(sizeof(int) * amnt)))
+		return (NULL);
+	i = 0;
+	while (i < amnt)
 	{
-		if (ft_strdig(argv[en]))
+		if (ft_strdig(*argv))
 		{
-			tmp = ft_atol(argv[en]);
+			tmp = ft_atoi(*argv);
 			if (tmp < -2147483648 || tmp > 2147483647)
-				return (write_rt("Error\n", 1));
-			push(a, (int)tmp);
+			{
+				free(arr);
+				write(1, "Error\n", 6);
+				return (NULL);
+			}
+			arr[i] = tmp;
+			i++;
+			argv++;
 		}
 		else
-			return (write_rt("Error\n", 1));
+		{
+			write(1, "Error\n", 6);
+			return (NULL);
+		}
+	}
+	if (repeating_f(arr, amnt))
+	{
+		free(arr);
+		write(1, "Error\n", 6);
+		return (NULL);
+	}
+	return (arr);
+}
+
+int		ft_get_med(t_lst *list, int amnt)
+{
+	int		med;
+	t_lst	*elem;
+	int		odd;
+
+	if (!list)
+		return (0);
+	elem = list;
+	odd = (amnt % 2) ? 0 : 1;
+	med = (amnt + odd) / 2;
+	while (elem)
+	{
+		if (elem->ind == med)
+			return (elem->n);
+		elem = elem->next;
 	}
 	return (0);
 }
 
-int		check_args(t_stack *a)
+void	ft_init_stack_param(t_stack *stack)
 {
-	if (repeating_f(a->array, a->top + 1))
-		return (write_rt("Error\n", 0));
-	return (1);
+	stack->med = ft_get_med(stack->top, stack->cap);
 }

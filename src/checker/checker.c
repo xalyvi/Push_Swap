@@ -12,7 +12,24 @@
 
 #include "ft_push_swap.h"
 
-static void	get_commands(t_stack *a, t_stack *b, int v)
+static int	ft_check_tmp(t_stack *a, t_stack *b, int check)
+{
+	t_lst *curr;
+
+	if (check)
+		if (b->top != NULL)
+			return (0);
+	curr = a->top;
+	while (curr->next)
+	{
+		if (curr->n > curr->next->n)
+			return (0);
+		curr = curr->next;
+	}
+	return (1);
+}
+
+static int	get_commands(t_stack *a, t_stack *b, int v)
 {
 	static void	(*com[11])(t_stack *, t_stack *, int, int) = { swap_a, swap_b,
 		swap_ab, push_a, push_b, rotate_a, rotate_b, rotate_ab,
@@ -23,7 +40,7 @@ static void	get_commands(t_stack *a, t_stack *b, int v)
 	if (v)
 	{
 		write(1, "Init a and b\n\n", 15);
-		print_arrs(a, b);
+		print_stacks(a, b);
 	}
 	while (get_next_line(0, &line))
 	{
@@ -31,39 +48,55 @@ static void	get_commands(t_stack *a, t_stack *b, int v)
 		if (i == -1)
 		{
 			free(line);
-			write(1, "Error\n", 6);
-			return ;
+			return (write_rt("Error\n", 0));
 		}
 		(*com[i])(a, b, 0, v);
 		free(line);
 	}
+	return (1);
+}
+
+static void	ft_listen_start(int *arr, t_lst *list, int amnt, int i)
+{
+	t_stack	*a;
+	t_stack	*b;
+
+	a = ft_create_stack(list, arr, amnt);
+	b = ft_init_stack();
+	if (!get_commands(a, b, i))
+		return ;
+	if (ft_check_tmp(a, b, 1))
+		write(1, "OK\n", 3);
+	else
+		write(1, "KO\n", 3);
+	free_stack(a);
+	free_stack(b);
 }
 
 int			main(int argc, char *argv[])
 {
-	t_stack	*a;
-	t_stack	*b;
+	t_lst	*list;
+	int		*arr;
 	int		i;
-	int		j;
 
-	if (argc < 2)
-		return (1);
-	i = (ft_strcmp(argv[1], "-v") == 0) ? 1 : 0;
-	j = 0;
-	if (argc < 4)
-		j = (!i) ? get_ruby(1, &argv, &argc) : get_ruby(2, &argv, &argc);
-	if ((a = create_stack(argc - 1 - i)) == NULL ||
-			(b = create_stack(argc - 1 - i)) == NULL)
-		return (write_rt("Error\n", 1));
-	if (push_stack(a, i - j - ((i && j) ? 1 : 0),
-				argc - j - ((i && j) ? 1 : 0), argv))
-		return (1);
-	if (check_args(a))
-		get_commands(a, b, (i == 1));
-	if (is_sorted(a) && b->top == -1)
-		write(1, "OK\n", 3);
-	else
-		write(1, "KO\n", 3);
-	free_stacks(a, b);
+	arr = NULL;
+	i = 0;
+	if (--argc >= 1)
+	{
+		argv++;
+		if (ft_strcmp(argv[0], "-v") == 0)
+		{
+			i = 1;
+			argv++;
+			argc--;
+		}
+		if (argc < 2)
+			return (0);
+		if (!(arr = push_arg(argv, argc)))
+			return (1);
+		list = ft_create_lst(arr, argc);
+		ft_listen_start(arr, list, argc, i);
+	}
+	free(arr);
 	return (0);
 }

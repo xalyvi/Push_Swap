@@ -1,6 +1,5 @@
 UTILS = ft_utils.c \
 	ft_utils2.c \
-	ft_stack_utils.c \
 	ft_str_utils.c \
 	ft_str_utils2.c \
 	ft_str_utils3.c \
@@ -8,15 +7,23 @@ UTILS = ft_utils.c \
 	ft_get_next_line.c \
 	ft_commands1.c \
 	ft_commands2.c \
-	ft_commands3.c
+	ft_commands3.c \
+	ft_commands4.c \
+	ft_check_sort.c \
+	ft_list_stack.c \
+	free_list.c
 
 CHECKER_SRC = $(UTILS) \
 	      checker/checker.c
 
 PUSH_SWAP_SRC = $(UTILS) \
 		push_swap/push_swap.c \
-		push_swap/optimization.c \
-		push_swap/quicksort.c
+		push_swap/ft_push_utils.c \
+		push_swap/ft_sort_small.c \
+		push_swap/push_to_a.c \
+		push_swap/push_to_be.c \
+		push_swap/sort_arr.c \
+		push_swap/stack_param.c
 
 CHECKER_OBJ = $(CHECKER_SRC:.c=.o)
 PUSH_SWAP_OBJ = $(PUSH_SWAP_SRC:.c=.o)
