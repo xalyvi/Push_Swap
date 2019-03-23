@@ -6,12 +6,11 @@
 /*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 23:39:08 by srolland          #+#    #+#             */
-/*   Updated: 2019/03/19 21:47:51 by srolland         ###   ########.fr       */
+/*   Updated: 2019/03/23 20:29:21 by srolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
-#include <stdio.h>
 
 static void	ft_sort_shit_ton(t_xuita *xuita, t_stack *a, t_stack *b)
 {
@@ -59,13 +58,13 @@ static void	ft_sort_start(int *arr, t_lst *list, int amnt, int print)
 
 int			main(int argc, char *argv[])
 {
-	t_lst 	*list;
-	int		*arr;
-	int		*tmp;
 	int		i;
+	t_lst	*list;
+	int		*arr;
+	char	fr;
 
-	arr = NULL;
 	i = 0;
+	fr = 0;
 	if (--argc >= 1)
 	{
 		argv++;
@@ -75,14 +74,9 @@ int			main(int argc, char *argv[])
 			argv++;
 			argc--;
 		}
-		if (argc < 2)
-			return (0);
-		if (!(tmp = push_arg(argv, argc)))
-			return (1);
-		list = ft_create_lst(tmp, argc);
-		arr = sort_arr(tmp, argc);
-		ft_sort_start(arr, list, argc, i);
-		free(tmp);
+		fr = ft_get_argv(argv, &argc, &arr, &list);
+		if (fr)
+			ft_sort_start(arr, list, argc, i);
 	}
 	return (0);
 }

@@ -23,8 +23,8 @@ static t_list	*get_fd(t_list **list, int fd)
 			return (tmp);
 		tmp = tmp->next;
 	}
-	tmp = ft_lstnew("", fd);
-	ft_lstadd(list, tmp);
+	tmp = ft_listnew(fd);
+	ft_listadd(list, tmp);
 	return (tmp);
 }
 
@@ -40,19 +40,19 @@ static int		ft_strccpy(char **dest, const char *src, char c)
 	return (len);
 }
 
-static int		read_from_fd(const int fd, char **line)
+static int		read_from_fd(int const fd, char **line)
 {
 	int		ret;
-	char	*temp;
-	char	buf[43];
+	char	*tmp;
+	char	buf[42];
 
 	while ((ret = read(fd, buf, 42)))
 	{
 		buf[ret] = '\0';
-		temp = *line;
+		tmp = *line;
 		if (!(*line = ft_strjoin(*line, buf)))
 			return (-1);
-		free(temp);
+		free(tmp);
 		if (ft_strchr(buf, '\n'))
 			break ;
 	}
@@ -61,23 +61,24 @@ static int		read_from_fd(const int fd, char **line)
 
 static void		ft_lstfone(t_list **list, t_list *one)
 {
-	t_list	*temp;
+	t_list	*tmp;
 
 	if (!list || !*list || !one)
 		return ;
-	temp = *list;
-	while (temp)
-		if (temp == one)
+	tmp = *list;
+	while (tmp)
+		if (tmp == one)
 			break ;
 		else
-			temp = temp->next;
-	free(temp->content);
-	temp->content = (char *)malloc(sizeof(char));
+			tmp = tmp->next;
+	free(tmp->content);
+	tmp->content = (char *)malloc(sizeof(char));
+	tmp->content[0] = '\0';
 }
 
 int				get_next_line(const int fd, char **line)
 {
-	char			buf[43];
+	char			buf[42];
 	static t_list	*list = 0;
 	int				ret;
 	t_list			*now;
@@ -85,6 +86,7 @@ int				get_next_line(const int fd, char **line)
 
 	if (fd < 0 || line == NULL || read(fd, buf, 0) < 0)
 		return (-1);
+	temp = NULL;
 	now = get_fd(&list, fd);
 	temp = now->content;
 	ret = read_from_fd(fd, &temp);

@@ -6,7 +6,7 @@
 /*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/14 20:31:34 by srolland          #+#    #+#             */
-/*   Updated: 2019/03/19 21:32:14 by srolland         ###   ########.fr       */
+/*   Updated: 2019/03/23 20:31:15 by srolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <sys/types.h>
-# include <inttypes.h>
 # include <sys/stat.h>
 # include <fcntl.h>
 
@@ -39,8 +38,7 @@ typedef struct	s_stack
 	int			cap;
 }				t_stack;
 
-
-typedef struct	s_xuita 
+typedef struct	s_xuita
 {
 	int			print;
 	int			index;
@@ -75,23 +73,23 @@ void			reverse_ab(t_stack *a, t_stack *b, int p, int x);
 ** Utility functions
 */
 
+char			ft_get_argv(char **argv, int *argc, int **arr, t_lst **list);
+char			**get_ruby(char *argv, int *argc);
+void			free_rub(char **argv);
 int				ft_check_sort(t_stack *a, t_stack *b, int check);
 int				ft_check_sort_b(t_stack *a, t_stack *b);
 int				write_rt(char *str, int rt);
-int				check_args(t_stack *a);
 int				*push_arg(char *argv[], int amnt);
 int				*sort_arr(int *arr, int amnt);
 void			free_list(t_xuita *xuita, t_stack *a, t_stack *b, int *arr);
 void			free_stack(t_stack *stack);
 void			ft_free_arr(int *arr, int amnt);
 void			ft_lst_free(t_lst *curr);
-// int				get_ruby(int i, char ***argv, int *argc);
-// int				push_stack(t_stack *a, int st, int en, char *argv[]);
 t_stack			*ft_create_stack(t_lst *list, int *arr, int amnt);
 t_lst			*ft_create_lst(int *arr, int amnt);
 t_stack			*ft_init_stack(void);
 t_xuita			*ft_init_xuita(int *arr, t_stack *a, int print);
-void    		ft_sort_three_a(t_stack *a, t_stack *b, int check, int print);
+void			ft_sort_three_a(t_stack *a, t_stack *b, int check, int print);
 void			ft_sort_three_b(t_stack *a, t_stack *b, int print);
 void			ft_get_min(t_xuita *xuita);
 void			ft_get_max(t_xuita *xuita);
@@ -115,13 +113,7 @@ int				ft_is_ra(t_xuita *xuita, t_stack *a);
 int				ft_is_rra(t_xuita *xuita, t_stack *a);
 int				ft_is_rb(t_xuita *xuita, t_stack *b);
 int				ft_is_rrb(t_xuita *xuita, t_stack *b);
-// int				is_sorted(t_stack *s);
 int				ft_strdig(const char *str);
-// void			optimization(t_stack *a, t_stack *b, int x);
-// void			q_push_b(t_stack *a, t_stack *b, int x);
-// void			optimize_order(t_stack *a, t_stack *b, int x);
-// void			optimize_rotate(t_stack *a, t_stack *b, int x);
-// void			quicksort(t_stack *a, t_stack *b, int x);
 
 /*
 ** GET_NEXT_LINE functions
@@ -149,7 +141,7 @@ typedef struct	s_list
 	struct s_list	*next;
 }				t_list;
 
-long long		ft_atoi(const char *str);
+intmax_t		ft_atoi(const char *str);
 char			*ft_itoa(int n);
 int				ft_strcmp(const char *s1, const char *s2);
 char			**ft_strsplit(char const *s, char c);
@@ -158,8 +150,8 @@ char			*ft_strdup(const char *str);
 char			*ft_strndup(const char *s1, size_t n);
 size_t			ft_strlen(const char *str);
 void			*ft_memcpy(void *dest, const void *src, size_t n);
-t_list			*ft_lstnew(void const *content, size_t content_size);
-void			ft_lstadd(t_list **alst, t_list *new);
+t_list			*ft_listnew(size_t content_size);
+void			ft_listadd(t_list **alst, t_list *new);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strsub(char const *s, unsigned int start, size_t len);
 

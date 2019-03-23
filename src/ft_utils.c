@@ -6,13 +6,13 @@
 /*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 23:38:01 by srolland          #+#    #+#             */
-/*   Updated: 2019/03/13 23:44:25 by srolland         ###   ########.fr       */
+/*   Updated: 2019/03/23 19:16:31 by srolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
 
-int		get_iter_number(int n)
+int			get_iter_number(int n)
 {
 	if (n <= 100)
 		return (3);
@@ -23,7 +23,7 @@ int		get_iter_number(int n)
 	return (10);
 }
 
-int		is_command(char *str)
+int			is_command(char *str)
 {
 	static char	*c[11] = {"sa", "sb", "ss", "pa", "pb",
 		"ra", "rb", "rr", "rra", "rrb", "rrr"};
@@ -41,7 +41,7 @@ int		is_command(char *str)
 	return (-1);
 }
 
-int		repeating_f(int array[], int len)
+int			repeating_f(int array[], int len)
 {
 	int	i;
 	int	j;
@@ -61,7 +61,7 @@ int		repeating_f(int array[], int len)
 	return (0);
 }
 
-int		ft_strdig(const char *str)
+int			ft_strdig(const char *str)
 {
 	if (*str == '-')
 		str++;
@@ -75,7 +75,7 @@ int		ft_strdig(const char *str)
 	return (1);
 }
 
-long long	ft_atoi(const char *str)
+intmax_t	ft_atoi(const char *str)
 {
 	long	nbr;
 	char	neg;

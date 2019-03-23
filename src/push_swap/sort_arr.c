@@ -1,61 +1,73 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   sort_arr.c                                         :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/23 19:24:59 by srolland          #+#    #+#             */
+/*   Updated: 2019/03/23 19:25:53 by srolland         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_push_swap.h"
 
-static int  sort(int *arr, int amnt)
+static int	sort(int *arr, int amnt)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    while (i < amnt - 1)
-    {
-        if (arr[i] > arr[i + 1])
-            return (0);
-        i++;
-    }
-    return (1);
+	i = 0;
+	while (i < amnt - 1)
+	{
+		if (arr[i] > arr[i + 1])
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
-static void swap(int *arr, int index, int *pivot, int amnt)
+static void	swap(int *arr, int index, int *pivot, int amnt)
 {
-    int tmp;
+	int	tmp;
 
-    if ((*pivot == amnt) || (*pivot - index) > 1)
-    {
-        tmp = arr[*pivot - 1];
-        arr[*pivot - 1] = arr[*pivot];
-        arr[*pivot] = tmp;
-        (*pivot)--;
-        tmp = arr[*pivot + 1];
-        arr[*pivot + 1] = arr[index];
-        arr[index] = tmp;
-    }
-    else
-    {
-        tmp = arr[*pivot];
-        arr[*pivot] = arr[index];
-        arr[index] = tmp;
-    }    
+	if ((*pivot == amnt) || (*pivot - index) > 1)
+	{
+		tmp = arr[*pivot - 1];
+		arr[*pivot - 1] = arr[*pivot];
+		arr[*pivot] = tmp;
+		(*pivot)--;
+		tmp = arr[*pivot + 1];
+		arr[*pivot + 1] = arr[index];
+		arr[index] = tmp;
+	}
+	else
+	{
+		tmp = arr[*pivot];
+		arr[*pivot] = arr[index];
+		arr[index] = tmp;
+	}
 }
 
-static void  quicksort(int *arr, int *pivot, int amnt)
+static void	quicksort(int *arr, int *pivot, int amnt)
 {
-    int i;
-    int tmp;
+	int	i;
+	int	tmp;
 
-    if (sort(arr, amnt))
-        return ;
-    if (*pivot == -1)
-        *pivot = amnt - 1;
-    i = 0;
-    while (i < *pivot)
-    {
-        tmp = arr[i];
-        if (arr[i] > arr[*pivot])
-            swap(arr, i, pivot, amnt);
-        if (tmp == arr[i])
-            i++;
-    }
-    (*pivot)--;
-    quicksort(arr, pivot, amnt);
+	if (sort(arr, amnt))
+		return ;
+	if (*pivot == -1)
+		*pivot = amnt - 1;
+	i = 0;
+	while (i < *pivot)
+	{
+		tmp = arr[i];
+		if (arr[i] > arr[*pivot])
+			swap(arr, i, pivot, amnt);
+		if (tmp == arr[i])
+			i++;
+	}
+	(*pivot)--;
+	quicksort(arr, pivot, amnt);
 }
 
 int			*sort_arr(int *arr, int amnt)
@@ -68,4 +80,4 @@ int			*sort_arr(int *arr, int amnt)
 	quicksort(arr, pivot, amnt);
 	free(pivot);
 	return (arr);
-}   
+}

@@ -12,75 +12,58 @@
 
 #include "ft_push_swap.h"
 
-static int		amount_of_words(char const *s, char c)
-{
-	size_t	words;
-
-	words = 0;
-	while (*s)
-	{
-		if (*s == c)
-			s++;
-		else
-		{
-			while (*s != c && *s != '\0')
-				s++;
-			words++;
-		}
-	}
-	return (words);
-}
-
-static void		delete_list(char **list)
+static size_t		ft_count_word(char const *s, char c)
 {
 	size_t	i;
+	size_t	count;
 
+	count = 0;
 	i = 0;
-	while (list[i])
+	while (s[i] != '\0')
 	{
-		free(list[i]);
+		while (s[i] == c)
+			i++;
+		if ((i == 1 && s[i] != c) || (s[i] != c && s[i - 1] == c))
+			count++;
 		i++;
 	}
-	free(list);
-	list = NULL;
+	return (count);
 }
 
-static char		**splity(char **list, char const *s, char c)
+static int			ft_is_begin_word(char const *s, size_t index, char c)
+{
+	if (index == 0 && s[index] != c)
+		return (1);
+	if (s[index] != c && s[index - 1] == c)
+		return (1);
+	return (0);
+}
+
+char				**ft_strsplit(char const *s, char c)
 {
 	size_t	i;
 	size_t	j;
-	size_t	len;
+	size_t	k;
+	char	**tab;
 
 	i = 0;
-	j = 0;
+	k = 0;
+	if ((tab = (char **)malloc(sizeof(char *) * ft_count_word(s, c))) == NULL)
+		return (NULL);
+	if (ft_count_word(s, c) == 0)
+		return (tab);
+	while (s[i] == c)
+		i++;
 	while (s[i])
 	{
-		if (s[i] == c)
-			i++;
-		else
+		j = 0;
+		if (ft_is_begin_word(s, i, c))
 		{
-			len = 0;
-			while (s[i + len] != c && s[i + len] != '\0')
-				len++;
-			if ((list[j++] = ft_strsub(s, i, len)) == NULL)
-			{
-				delete_list(list);
-				return (NULL);
-			}
-			i += len;
+			while (s[i + j] != c && s[i + j] != '\0')
+				j++;
+			tab[k++] = ft_strsub(s, i, j);
 		}
+		i++;
 	}
-	list[j] = 0;
-	return (list);
-}
-
-char			**ft_strsplit(char const *s, char c)
-{
-	char	**list;
-
-	if (!s || !c || ((list = (char **)malloc(sizeof(char *) *
-						(amount_of_words(s, c) + 1)))
-				== NULL))
-		return (NULL);
-	return (splity(list, s, c));
+	return (tab);
 }

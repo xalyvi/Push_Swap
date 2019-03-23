@@ -6,7 +6,7 @@
 /*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 23:38:36 by srolland          #+#    #+#             */
-/*   Updated: 2019/03/13 23:38:38 by srolland         ###   ########.fr       */
+/*   Updated: 2019/03/23 20:27:48 by srolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,35 +22,53 @@ void	*ft_memcpy(void *dest, const void *src, size_t n)
 	return (dest);
 }
 
-void	ft_lstadd(t_list **alst, t_list *new)
+void	ft_listadd(t_list **alst, t_list *new)
 {
 	new->next = *alst;
 	*alst = new;
 }
 
-t_list	*ft_lstnew(void const *content, size_t content_size)
+t_list	*ft_listnew(size_t content_size)
 {
 	t_list	*elem;
 
 	elem = (t_list *)malloc(sizeof(t_list));
 	if (elem == NULL)
 		return (NULL);
-	if (content == NULL)
+
+	elem->content = (char *)malloc(sizeof(char));
+	if (elem->content == NULL)
 	{
-		content_size = 0;
-		elem->content = NULL;
+		free(elem);
+		return (NULL);
 	}
-	else
-	{
-		elem->content = (char *)malloc(content_size);
-		if (elem->content == NULL)
-		{
-			free(elem);
-			return (NULL);
-		}
-		ft_memcpy(elem->content, content, content_size);
-	}
+	elem->content[0] = '\0';
 	elem->content_size = content_size;
 	elem->next = NULL;
 	return (elem);
+}
+
+int		ft_get_med(t_lst *list, int amnt)
+{
+	int		med;
+	t_lst	*elem;
+	int		odd;
+
+	if (!list)
+		return (0);
+	elem = list;
+	odd = (amnt % 2) ? 0 : 1;
+	med = (amnt + odd) / 2;
+	while (elem)
+	{
+		if (elem->ind == med)
+			return (elem->n);
+		elem = elem->next;
+	}
+	return (0);
+}
+
+void	ft_init_stack_param(t_stack *stack)
+{
+	stack->med = ft_get_med(stack->top, stack->cap);
 }

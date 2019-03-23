@@ -1,4 +1,48 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_push_utils.c                                    :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/23 19:17:15 by srolland          #+#    #+#             */
+/*   Updated: 2019/03/23 20:28:46 by srolland         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_push_swap.h"
+
+char	ft_get_argv(char **argv, int *argc, int **arr, t_lst **list)
+{
+	int		*tmp;
+	char	j;
+	char	**tm;
+
+	j = 0;
+	tm = NULL;
+	if (*argc < 2)
+		tm = get_ruby(argv[0], argc);
+	if (tm)
+	{
+		if (!(tmp = push_arg(tm, *argc)))
+		{
+			free_rub(tm);
+			return (0);
+		}
+	}
+	else
+	{
+		if (!(tmp = push_arg(argv, *argc)))
+			return (0);
+	}
+	*list = ft_create_lst(tmp, *argc);
+	*arr = sort_arr(tmp, *argc);
+	if (tmp)
+		free(tmp);
+	if (j)
+		free_rub(tm);
+	return (1);
+}
 
 int		ft_is_ra(t_xuita *xuita, t_stack *a)
 {

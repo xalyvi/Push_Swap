@@ -6,7 +6,7 @@
 /*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 22:56:53 by srolland          #+#    #+#             */
-/*   Updated: 2019/03/19 21:28:19 by srolland         ###   ########.fr       */
+/*   Updated: 2019/03/23 20:27:30 by srolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,14 +73,45 @@ static void	ft_listen_start(int *arr, t_lst *list, int amnt, int i)
 	free_stack(b);
 }
 
+static char	ft_get_ch_argv(char **argv, int *argc, int **arr, t_lst **list)
+{
+	char	j;
+	char	**tm;
+
+	j = 0;
+	tm = NULL;
+	if (*argc < 2)
+		tm = get_ruby(argv[0], argc);
+	if (tm)
+	{
+		j = 1;
+		if (!(*arr = push_arg(tm, *argc)))
+		{
+			free_rub(tm);
+			return (0);
+		}
+	}
+	else
+	{
+		if (!(*arr = push_arg(argv, *argc)))
+			return (0);
+	}
+	*list = ft_create_lst(*arr, *argc);
+	if (j)
+		free_rub(tm);
+	return (1);
+}
+
 int			main(int argc, char *argv[])
 {
 	t_lst	*list;
 	int		*arr;
 	int		i;
+	char	fr;
 
-	arr = NULL;
 	i = 0;
+	fr = 0;
+	arr = NULL;
 	if (--argc >= 1)
 	{
 		argv++;
@@ -90,12 +121,9 @@ int			main(int argc, char *argv[])
 			argv++;
 			argc--;
 		}
-		if (argc < 2)
-			return (0);
-		if (!(arr = push_arg(argv, argc)))
-			return (1);
-		list = ft_create_lst(arr, argc);
-		ft_listen_start(arr, list, argc, i);
+		fr = ft_get_ch_argv(argv, &argc, &arr, &list);
+		if (fr)
+			ft_listen_start(arr, list, argc, i);
 	}
 	free(arr);
 	return (0);

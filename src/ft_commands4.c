@@ -1,7 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_commands4.c                                     :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2019/03/23 19:05:27 by srolland          #+#    #+#             */
+/*   Updated: 2019/03/23 19:14:19 by srolland         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_push_swap.h"
 
-
-void	reverse_a(t_stack *a, t_stack *b, int p, int x)
+void			reverse_a(t_stack *a, t_stack *b, int p, int x)
 {
 	t_lst *first;
 	t_lst *last;
@@ -22,11 +33,11 @@ void	reverse_a(t_stack *a, t_stack *b, int p, int x)
 	next_to->next = NULL;
 	if (p)
 		write(1, "rra\n", 4);
-    if (x)
-        print_stacks(a, b);
+	if (x)
+		print_stacks(a, b);
 }
 
-void	reverse_b(t_stack *a, t_stack *b, int p, int x)
+void			reverse_b(t_stack *a, t_stack *b, int p, int x)
 {
 	t_lst *first;
 	t_lst *last;
@@ -47,61 +58,56 @@ void	reverse_b(t_stack *a, t_stack *b, int p, int x)
 	next_to->next = NULL;
 	if (p)
 		write(1, "rrb\n", 4);
-    if (x)
-        print_stacks(a, b);
+	if (x)
+		print_stacks(a, b);
 }
 
-void	reverse_ab(t_stack *a, t_stack *b, int p, int x)
+void			reverse_ab(t_stack *a, t_stack *b, int p, int x)
 {
 	reverse_a(a, b, 0, 0);
 	reverse_b(a, b, 0, 0);
 	if (p)
 		write(1, "rrr\n", 4);
-    if (x)
-        print_stacks(a, b);
+	if (x)
+		print_stacks(a, b);
 }
 
-static void	print_num(int num)
+static t_lst	*print_num(t_lst *elem)
 {
 	char	*tmp;
 
-	tmp = ft_itoa(num);
-	write(1, "           ", 11 - ft_strlen(tmp));
-	write(1, tmp, ft_strlen(tmp));
-	free(tmp);
+	if (elem)
+	{
+		tmp = ft_itoa(elem->n);
+		write(1, "           ", 11 - ft_strlen(tmp));
+		write(1, tmp, ft_strlen(tmp));
+		elem = elem->next;
+		free(tmp);
+	}
+	else
+		write(1, "           ", 11);
+	return (elem);
 }
 
-void		print_stacks(t_stack *a, t_stack *b)
+void			print_stacks(t_stack *a, t_stack *b)
 {
-    t_lst   *at;
-    t_lst   *bt;
+	t_lst	*at;
+	t_lst	*bt;
 	int		i;
 	int		j;
 
 	i = a->cap;
-    at = a->top;
-    bt = b->top;
+	at = a->top;
+	bt = b->top;
 	j = b->cap;
 	write(1, "+-----A-----+-----B-----+\n", 26);
 	while (i > 0 || j > 0)
 	{
 		write(1, "|", 1);
-        if (at)
-        {
-		    print_num(at->n);
-		    at = at->next;
-        }
-        else
-            write(1, "           ", 11);
-        i--;
+		at = print_num(at);
+		i--;
 		write(1, "|", 1);
-		if (bt)
-        {
-		    print_num(bt->n);
-		    bt = bt->next;
-        }
-        else
-            write(1, "           ", 11);
+		bt = print_num(bt);
 		j--;
 		write(1, "|\n", 2);
 	}

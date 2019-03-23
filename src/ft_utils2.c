@@ -6,14 +6,13 @@
 /*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 23:38:05 by srolland          #+#    #+#             */
-/*   Updated: 2019/03/19 21:31:40 by srolland         ###   ########.fr       */
+/*   Updated: 2019/03/23 20:30:10 by srolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
-#include <stdio.h>
 
-int		write_rt(char *str, int rt)
+int			write_rt(char *str, int rt)
 {
 	while (*str != '\0')
 	{
@@ -23,32 +22,54 @@ int		write_rt(char *str, int rt)
 	return (rt);
 }
 
-int		get_ruby(int i, char ***argv, int *argc)
+char		**get_ruby(char *argv, int *argc)
 {
 	char	**tmp;
 	int		j;
 
-	tmp = ft_strsplit(argv[0][i], ' ');
+	tmp = ft_strsplit(argv, ' ');
 	if (tmp[1])
 	{
-		*argv = tmp;
 		j = 0;
-		while (argv[0][j])
+		while (tmp[j])
 			j++;
-		*argc = (i == 1) ? (j + 1) : (j + 2);
-		return (1);
+		*argc = j;
+		return (tmp);
 	}
 	else
 	{
 		free(tmp[0]);
 		free(tmp);
 	}
-	return (0);
+	return (NULL);
 }
 
-int		*push_arg(char *argv[], int amnt)
+static int	push_num(char *argv, int *arr, int i)
 {
 	intmax_t	tmp;
+
+	if (ft_strdig(argv))
+	{
+		tmp = ft_atoi(argv);
+		if (tmp < -2147483648 || tmp > 2147483647)
+		{
+			free(arr);
+			write(1, "Error\n", 6);
+			return (0);
+		}
+		arr[i] = tmp;
+		i++;
+	}
+	else
+	{
+		write(1, "Error\n", 6);
+		return (0);
+	}
+	return (1);
+}
+
+int			*push_arg(char *argv[], int amnt)
+{
 	int			i;
 	int			*arr;
 
@@ -57,22 +78,14 @@ int		*push_arg(char *argv[], int amnt)
 	i = 0;
 	while (i < amnt)
 	{
-		if (ft_strdig(*argv))
+		if (push_num(*argv, arr, i))
 		{
-			tmp = ft_atoi(*argv);
-			if (tmp < -2147483648 || tmp > 2147483647)
-			{
-				free(arr);
-				write(1, "Error\n", 6);
-				return (NULL);
-			}
-			arr[i] = tmp;
-			i++;
 			argv++;
+			i++;
 		}
 		else
 		{
-			write(1, "Error\n", 6);
+			free(arr);
 			return (NULL);
 		}
 	}
@@ -85,27 +98,15 @@ int		*push_arg(char *argv[], int amnt)
 	return (arr);
 }
 
-int		ft_get_med(t_lst *list, int amnt)
+void	free_rub(char **argv)
 {
-	int		med;
-	t_lst	*elem;
-	int		odd;
+	int	i;
 
-	if (!list)
-		return (0);
-	elem = list;
-	odd = (amnt % 2) ? 0 : 1;
-	med = (amnt + odd) / 2;
-	while (elem)
+	i = 0;
+	while (argv[i])
 	{
-		if (elem->ind == med)
-			return (elem->n);
-		elem = elem->next;
+		free(argv[i]);
+		i++;
 	}
-	return (0);
-}
-
-void	ft_init_stack_param(t_stack *stack)
-{
-	stack->med = ft_get_med(stack->top, stack->cap);
+	free(argv);
 }
