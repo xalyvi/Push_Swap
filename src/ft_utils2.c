@@ -6,7 +6,7 @@
 /*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 23:38:05 by srolland          #+#    #+#             */
-/*   Updated: 2019/03/23 20:30:10 by srolland         ###   ########.fr       */
+/*   Updated: 2019/03/24 19:25:20 by srolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,6 @@ int			*push_arg(char *argv[], int amnt)
 		return (NULL);
 	i = 0;
 	while (i < amnt)
-	{
 		if (push_num(*argv, &arr, i))
 		{
 			argv++;
@@ -84,7 +83,6 @@ int			*push_arg(char *argv[], int amnt)
 			free(arr);
 			return (NULL);
 		}
-	}
 	if (repeating_f(arr, amnt))
 	{
 		free(arr);
@@ -94,7 +92,7 @@ int			*push_arg(char *argv[], int amnt)
 	return (arr);
 }
 
-void	free_rub(char **argv)
+void		free_rub(char **argv)
 {
 	int	i;
 

@@ -100,6 +100,10 @@ t_xuita		*ft_init_xuita(int *arr, t_stack *a, int print)
 	if (!(xuita = (t_xuita*)malloc(sizeof(t_xuita))))
 		return (NULL);
 	xuita->index = 0;
+	xuita->mov_1 = 0;
+	xuita->mov_2 = 0;
+	xuita->id = 0;
+	xuita->med = 0;
 	xuita->print = print;
 	xuita->iter = get_iter_number(a->cap);
 	xuita->loop = a->cap / xuita->iter;

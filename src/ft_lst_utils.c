@@ -6,7 +6,7 @@
 /*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/13 23:38:36 by srolland          #+#    #+#             */
-/*   Updated: 2019/03/23 20:27:48 by srolland         ###   ########.fr       */
+/*   Updated: 2019/03/24 19:23:21 by srolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ t_list	*ft_listnew(size_t content_size)
 	elem = (t_list *)malloc(sizeof(t_list));
 	if (elem == NULL)
 		return (NULL);
-
 	elem->content = (char *)malloc(sizeof(char));
 	if (elem->content == NULL)
 	{

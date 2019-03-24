@@ -6,70 +6,80 @@
 /*   By: srolland <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/19 19:37:55 by srolland          #+#    #+#             */
-/*   Updated: 2019/03/19 21:31:26 by srolland         ###   ########.fr       */
+/*   Updated: 2019/03/24 19:26:34 by srolland         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
 
-static size_t		ft_len_c_stop(const char *str, int start, char c_stop)
+static size_t	amount_of_words(char const *s, char c)
 {
-	size_t		counter;
+	size_t	words;
 
-	if (!str)
-		return (0);
-	counter = 0;
-	while (str[start] && (str[start] != c_stop))
+	words = 0;
+	while (*s)
 	{
-		start++;
-		counter++;
+		if (*s == c)
+			s++;
+		else
+		{
+			while (*s != c && *s != '\0')
+				s++;
+			words++;
+		}
 	}
-	return (counter);
+	return (words);
 }
 
-static int			ft_split_count(char *str, char c)
+static void		delete_list(char **list)
 {
-	int		count_word;
-	int		counter;
+	size_t	i;
 
-	counter = 0;
-	count_word = 0;
-	while (str[counter])
-	{
-		while (str[counter] && str[counter] != c)
-			counter++;
-		while (str[counter] && str[counter] == c)
-			counter++;
-		count_word++;
-	}
-	return (count_word);
-}
-
-char				**ft_strsplit(char const *s, char c)
-{
-	int				count_word;
-	int				i;
-	unsigned int	counter;
-	char			**array_s;
-	char			*str;
-
-	str = (char *)s;
-	if (!str || *str == 0)
-		return (NULL);
-	counter = 0;
-	count_word = ft_split_count(str, c);
-	array_s = (char**)malloc(sizeof(char*) * (count_word + 1));
-	counter = 0;
 	i = 0;
-	while (i < count_word)
+	while (list[i])
 	{
-		while ((str[counter] == (char)c) && str[counter])
-			counter++;
-		array_s[i] = ft_strsub(str, counter, ft_len_c_stop(str, counter, c));
-		while ((str[counter] != (char)c) && str[counter])
-			counter++;
+		free(list[i]);
 		i++;
 	}
-	array_s[i] = 0;
-	return (array_s);
+	free(list);
+}
+
+static char		**splity(char **list, char const *s, char c)
+{
+	size_t	i;
+	size_t	j;
+	size_t	len;
+
+	i = 0;
+	j = 0;
+	while (s[i])
+	{
+		if (s[i] == c)
+			i++;
+		else
+		{
+			len = 0;
+			while (s[i + len] != c && s[i + len] != '\0')
+				len++;
+			if ((list[j++] = ft_strsub(s, i, len)) == NULL)
+			{
+				delete_list(list);
+				return (NULL);
+			}
+			i += len;
+		}
+	}
+	list[j] = 0;
+	return (list);
+}
+
+char			**ft_strsplit(char const *s, char c)
+{
+	char	**list;
+
+	if (!s || !c || ((list = (char**)malloc(sizeof(char*) *
+						(amount_of_words(s, c) + 1)))
+				== NULL))
+		return (NULL);
+	return (splity(list, s, c));
 }
