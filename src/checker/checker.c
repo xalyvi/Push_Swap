@@ -48,7 +48,8 @@ static int	get_commands(t_stack *a, t_stack *b, int v)
 		if (i == -1)
 		{
 			free(line);
-			return (write_rt("Error\n", 0));
+			write(1, "Error\n", 6);
+			return (0);
 		}
 		(*com[i])(a, b, 0, v);
 		free(line);
@@ -73,18 +74,15 @@ static void	ft_listen_start(int *arr, t_lst *list, int amnt, int i)
 	free_stack(b);
 }
 
-static char	ft_get_ch_argv(char **argv, int *argc, int **arr, t_lst **list)
+static int	ft_get_ch_argv(char **argv, int *argc, int **arr, t_lst **list)
 {
-	char	j;
 	char	**tm;
 
-	j = 0;
 	tm = NULL;
 	if (*argc < 2)
 		tm = get_ruby(argv[0], argc);
 	if (tm)
 	{
-		j = 1;
 		if (!(*arr = push_arg(tm, *argc)))
 		{
 			free_rub(tm);
@@ -97,7 +95,7 @@ static char	ft_get_ch_argv(char **argv, int *argc, int **arr, t_lst **list)
 			return (0);
 	}
 	*list = ft_create_lst(*arr, *argc);
-	if (j)
+	if (tm)
 		free_rub(tm);
 	return (1);
 }
@@ -107,7 +105,7 @@ int			main(int argc, char *argv[])
 	t_lst	*list;
 	int		*arr;
 	int		i;
-	char	fr;
+	int		fr;
 
 	i = 0;
 	fr = 0;
@@ -125,6 +123,7 @@ int			main(int argc, char *argv[])
 		if (fr)
 			ft_listen_start(arr, list, argc, i);
 	}
-	free(arr);
+	if (arr)
+		free(arr);
 	return (0);
 }

@@ -78,7 +78,6 @@ char			**get_ruby(char *argv, int *argc);
 void			free_rub(char **argv);
 int				ft_check_sort(t_stack *a, t_stack *b, int check);
 int				ft_check_sort_b(t_stack *a, t_stack *b);
-int				write_rt(char *str, int rt);
 int				*push_arg(char *argv[], int amnt);
 int				*sort_arr(int *arr, int amnt);
 void			free_list(t_xuita *xuita, t_stack *a, t_stack *b, int *arr);

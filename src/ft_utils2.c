@@ -12,16 +12,6 @@
 
 #include "ft_push_swap.h"
 
-int			write_rt(char *str, int rt)
-{
-	while (*str != '\0')
-	{
-		write(1, str, 1);
-		str++;
-	}
-	return (rt);
-}
-
 char		**get_ruby(char *argv, int *argc)
 {
 	char	**tmp;
@@ -50,7 +40,6 @@ static int	push_num(char *argv, int **arr, int i)
 		tmp = ft_atoi(argv);
 		if (tmp < -2147483648 || tmp > 2147483647)
 		{
-			free(arr);
 			write(1, "Error\n", 6);
 			return (0);
 		}
