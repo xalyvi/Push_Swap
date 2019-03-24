@@ -27,7 +27,6 @@ becomes the first one.
     rrr : rra and rrb at the same time
     
 Push Swap is a program which calculates and displays on the standart output the smallest amount of commands to sort integers.
-push swap is using quicksort implementation
 
 Usage:
     type "make" in terminal to compile programs
