@@ -61,10 +61,9 @@ int			main(int argc, char *argv[])
 	int		i;
 	t_lst	*list;
 	int		*arr;
-	char	fr;
 
 	i = 0;
-	fr = 0;
+	arr = NULL;
 	if (--argc >= 1)
 	{
 		argv++;
@@ -74,8 +73,8 @@ int			main(int argc, char *argv[])
 			argv++;
 			argc--;
 		}
-		fr = ft_get_argv(argv, &argc, &arr, &list);
-		if (fr)
+		arr = ft_get_argv(argv, &argc, &list);
+		if (arr)
 			ft_sort_start(arr, list, argc, i);
 	}
 	return (0);

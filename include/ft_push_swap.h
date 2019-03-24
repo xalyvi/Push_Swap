@@ -18,6 +18,7 @@
 # include <sys/types.h>
 # include <sys/stat.h>
 # include <fcntl.h>
+# include <inttypes.h>
 
 typedef struct	s_lst
 {
@@ -73,7 +74,7 @@ void			reverse_ab(t_stack *a, t_stack *b, int p, int x);
 ** Utility functions
 */
 
-char			ft_get_argv(char **argv, int *argc, int **arr, t_lst **list);
+int				*ft_get_argv(char **argv, int *argc, t_lst **list);
 char			**get_ruby(char *argv, int *argc);
 void			free_rub(char **argv);
 int				ft_check_sort(t_stack *a, t_stack *b, int check);

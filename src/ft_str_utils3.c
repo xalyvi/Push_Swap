@@ -12,58 +12,64 @@
 
 #include "ft_push_swap.h"
 
-static size_t		ft_count_word(char const *s, char c)
+static size_t		ft_len_c_stop(const char *str, int start, char c_stop)
 {
-	size_t	i;
-	size_t	count;
+	size_t		counter;
 
-	count = 0;
-	i = 0;
-	while (s[i] != '\0')
+	if (!str)
+		return (0);
+	counter = 0;
+	while (str[start] && (str[start] != c_stop))
 	{
-		while (s[i] == c)
-			i++;
-		if ((i == 1 && s[i] != c) || (s[i] != c && s[i - 1] == c))
-			count++;
-		i++;
+		start++;
+		counter++;
 	}
-	return (count);
+	return (counter);
 }
 
-static int			ft_is_begin_word(char const *s, size_t index, char c)
+static int			ft_split_count(char *str, char c)
 {
-	if (index == 0 && s[index] != c)
-		return (1);
-	if (s[index] != c && s[index - 1] == c)
-		return (1);
-	return (0);
+	int		count_word;
+	int		counter;
+
+	counter = 0;
+	count_word = 0;
+	while (str[counter])
+	{
+		while (str[counter] && str[counter] != c)
+			counter++;
+		while (str[counter] && str[counter] == c)
+			counter++;
+		count_word++;
+	}
+	return (count_word);
 }
 
 char				**ft_strsplit(char const *s, char c)
 {
-	size_t	i;
-	size_t	j;
-	size_t	k;
-	char	**tab;
+	int				count_word;
+	int				i;
+	unsigned int	counter;
+	char			**array_s;
+	char			*str;
 
-	i = 0;
-	k = 0;
-	if ((tab = (char **)malloc(sizeof(char *) * ft_count_word(s, c))) == NULL)
+	str = (char *)s;
+	if (!str || *str == 0)
 		return (NULL);
-	if (ft_count_word(s, c) == 0)
-		return (tab);
-	while (s[i] == c)
-		i++;
-	while (s[i])
+	counter = 0;
+	count_word = ft_split_count(str, c);
+	array_s = (char**)malloc(sizeof(char*) * (count_word + 1));
+	counter = 0;
+	i = 0;
+	while (i < count_word)
 	{
-		j = 0;
-		if (ft_is_begin_word(s, i, c))
-		{
-			while (s[i + j] != c && s[i + j] != '\0')
-				j++;
-			tab[k++] = ft_strsub(s, i, j);
-		}
+		while ((str[counter] == (char)c) && str[counter])
+			counter++;
+		array_s[i] = ft_strsub(str, counter, ft_len_c_stop(str, counter, c));
+		while ((str[counter] != (char)c) && str[counter])
+			counter++;
 		i++;
 	}
-	return (tab);
+	array_s[i] = 0;
+	return (array_s);
 }

@@ -37,14 +37,11 @@ char		**get_ruby(char *argv, int *argc)
 		return (tmp);
 	}
 	else
-	{
-		free(tmp[0]);
-		free(tmp);
-	}
+		free_rub(tmp);
 	return (NULL);
 }
 
-static int	push_num(char *argv, int *arr, int i)
+static int	push_num(char *argv, int **arr, int i)
 {
 	intmax_t	tmp;
 
@@ -57,8 +54,7 @@ static int	push_num(char *argv, int *arr, int i)
 			write(1, "Error\n", 6);
 			return (0);
 		}
-		arr[i] = tmp;
-		i++;
+		arr[0][i] = (int)tmp;
 	}
 	else
 	{
@@ -78,7 +74,7 @@ int			*push_arg(char *argv[], int amnt)
 	i = 0;
 	while (i < amnt)
 	{
-		if (push_num(*argv, arr, i))
+		if (push_num(*argv, &arr, i))
 		{
 			argv++;
 			i++;
