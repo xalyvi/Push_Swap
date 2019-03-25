@@ -48,6 +48,8 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	size_t	len1;
 	size_t	len2;
 
+	if (!s1 && s2)
+		return (ft_strdup(s2));
 	if (s1 && s2)
 	{
 		len1 = ft_strlen(s1);

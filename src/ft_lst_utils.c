@@ -12,16 +12,6 @@
 
 #include "ft_push_swap.h"
 
-void	*ft_memcpy(void *dest, const void *src, size_t n)
-{
-	while (n > 0)
-	{
-		n--;
-		((unsigned char *)dest)[n] = ((unsigned char *)src)[n];
-	}
-	return (dest);
-}
-
 void	ft_listadd(t_list **alst, t_list *new)
 {
 	new->next = *alst;
@@ -35,13 +25,7 @@ t_list	*ft_listnew(size_t content_size)
 	elem = (t_list *)malloc(sizeof(t_list));
 	if (elem == NULL)
 		return (NULL);
-	elem->content = (char *)malloc(sizeof(char));
-	if (elem->content == NULL)
-	{
-		free(elem);
-		return (NULL);
-	}
-	elem->content[0] = '\0';
+	elem->content = NULL;
 	elem->content_size = content_size;
 	elem->next = NULL;
 	return (elem);

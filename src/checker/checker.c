@@ -42,17 +42,16 @@ static int	get_commands(t_stack *a, t_stack *b, int v)
 		write(1, "Init a and b\n\n", 15);
 		print_stacks(a, b);
 	}
-	while (get_next_line(0, &line))
+	while (get_line(&line))
 	{
 		i = is_command(line);
+		free(line);
 		if (i == -1)
 		{
-			free(line);
 			write(1, "Error\n", 6);
 			return (0);
 		}
 		(*com[i])(a, b, 0, v);
-		free(line);
 	}
 	return (1);
 }
@@ -61,15 +60,19 @@ static void	ft_listen_start(int *arr, t_lst *list, int amnt, int i)
 {
 	t_stack	*a;
 	t_stack	*b;
+	int		j;
 
+	i = 0;
 	a = ft_create_stack(list, arr, amnt);
 	b = ft_init_stack();
-	if (!get_commands(a, b, i))
-		return ;
-	if (ft_check_tmp(a, b, 1))
-		write(1, "OK\n", 3);
-	else
-		write(1, "KO\n", 3);
+	j = get_commands(a, b, i);
+	if (j)
+	{
+		if (ft_check_tmp(a, b, 1))
+			write(1, "OK\n", 3);
+		else
+			write(1, "KO\n", 3);
+	}
 	free_stack(a);
 	free_stack(b);
 }

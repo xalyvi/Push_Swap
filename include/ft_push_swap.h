@@ -114,31 +114,11 @@ int				ft_is_rb(t_xuita *xuita, t_stack *b);
 int				ft_is_rrb(t_xuita *xuita, t_stack *b);
 int				ft_strdig(const char *str);
 
-/*
-** GET_NEXT_LINE functions
-*/
-
-typedef struct	s_gnl
-{
-	char	*buf;
-	int		count;
-	int		i;
-	int		nl;
-	int		fd;
-}				t_gnl;
-
-int				get_next_line(int const fd, char **line);
+int				get_line(char **line);
 
 /*
 ** LIBFT functions
 */
-
-typedef struct	s_list
-{
-	char			*content;
-	size_t			content_size;
-	struct s_list	*next;
-}				t_list;
 
 intmax_t		ft_atoi(const char *str);
 char			*ft_itoa(int n);
@@ -146,11 +126,7 @@ int				ft_strcmp(const char *s1, const char *s2);
 char			**ft_strsplit(char const *s, char c);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strdup(const char *str);
-char			*ft_strndup(const char *s1, size_t n);
 size_t			ft_strlen(const char *str);
-void			*ft_memcpy(void *dest, const void *src, size_t n);
-t_list			*ft_listnew(size_t content_size);
-void			ft_listadd(t_list **alst, t_list *new);
 char			*ft_strchr(const char *s, int c);
 char			*ft_strsub(char const *s, unsigned int start, size_t len);
 

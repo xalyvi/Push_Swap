@@ -63,7 +63,7 @@ int			repeating_f(int array[], int len)
 
 int			ft_strdig(const char *str)
 {
-	if (*str == '-')
+	if (*str == '-' && *(str + 1) >= '0' && *(str + 1) <= '9')
 		str++;
 	while (*str != '\0')
 	{
