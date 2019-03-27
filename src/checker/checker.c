@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
+#include <stdio.h>
 
 static int	ft_check_tmp(t_stack *a, t_stack *b, int check)
 {
@@ -62,7 +63,7 @@ static void	ft_listen_start(int *arr, t_lst *list, int amnt, int i)
 	t_stack	*b;
 	int		j;
 
-	i = 0;
+	j = 0;
 	a = ft_create_stack(list, arr, amnt);
 	b = ft_init_stack();
 	j = get_commands(a, b, i);

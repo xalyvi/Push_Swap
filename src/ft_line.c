@@ -43,7 +43,6 @@ int				get_line(char **line)
 	ret = read_from_fd(&temp);
 	if (ret < 0 || !temp)
 		return (0);
-	*line = ft_strsub(temp, 0, ret - 1);
-	free(temp);
+	*line = temp;
 	return (1);
 }

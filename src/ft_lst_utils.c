@@ -12,25 +12,6 @@
 
 #include "ft_push_swap.h"
 
-void	ft_listadd(t_list **alst, t_list *new)
-{
-	new->next = *alst;
-	*alst = new;
-}
-
-t_list	*ft_listnew(size_t content_size)
-{
-	t_list	*elem;
-
-	elem = (t_list *)malloc(sizeof(t_list));
-	if (elem == NULL)
-		return (NULL);
-	elem->content = NULL;
-	elem->content_size = content_size;
-	elem->next = NULL;
-	return (elem);
-}
-
 int		ft_get_med(t_lst *list, int amnt)
 {
 	int		med;
