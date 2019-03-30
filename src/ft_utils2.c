@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
+#include <stdio.h>
 
 char		**get_ruby(char *argv, int *argc)
 {

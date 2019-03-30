@@ -25,8 +25,8 @@ int			get_iter_number(int n)
 
 int			is_command(char *str)
 {
-	static char	*c[11] = {"sa\n", "sb\n", "ss\n", "pa\n", "pb\n",
-		"ra\n", "rb\n", "rr\n", "rra\n", "rrb\n", "rrr\n"};
+	static char	*c[11] = {"sa", "sb", "ss", "pa", "pb",
+		"ra", "rb", "rr", "rra", "rrb", "rrr"};
 	int			i;
 
 	i = 0;
