@@ -18,7 +18,7 @@ static int		read_from_fd(char **line)
 	char	*tmp;
 	char	buf[2];
 
-	while (ret = read(0, buf, 1))
+	while ((ret = read(0, buf, 1)))
 	{
 		buf[1] = '\0';
 		tmp = *line;
