@@ -11,33 +11,32 @@
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
-#include <stdio.h>
 
 static int		read_from_fd(char **line)
 {
 	int		ret;
 	char	*tmp;
-	char	buf[4];
+	char	buf[2];
 
-	ret = -1;
-	if ((ret = read(0, buf, 3)))
+	while (ret = read(0, buf, 1))
 	{
+		buf[1] = '\0';
+		tmp = *line;
 		if (!(*line = ft_strjoin(*line, buf)))
 			return (-1);
+		free(tmp);
+		if (buf[0] == '\n')
+			break ;
 	}
-	if (buf[2] != '\n')
-		read(0, buf, 2);
-	if (!(*line = ft_strjoin(*line, buf)))
-		return (-1);
 	return (ret);
 }
 
 int				get_line(char **line)
 {
-	char			buf[4];
+	char			buf[2];
 	int				ret;
-	char			*end;
 	char			*temp;
+	char			*n;
 
 	if (line == NULL || read(0, buf, 0) < 0)
 		return (-1);
@@ -45,6 +44,9 @@ int				get_line(char **line)
 	ret = read_from_fd(&temp);
 	if (ret < 0 || !temp)
 		return (0);
-	end = *line;
+	*line = temp;
+	n = ft_strchr(temp, '\n');
+	if (n != NULL)
+		n[0] = '\0';
 	return (1);
 }

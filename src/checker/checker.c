@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_push_swap.h"
-#include <stdio.h>
 
 static int	ft_check_tmp(t_stack *a, t_stack *b, int check)
 {
